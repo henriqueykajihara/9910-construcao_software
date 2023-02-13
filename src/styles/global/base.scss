@@ -1,0 +1,46 @@
+@import './variables';
+
+#main-container {
+  height: calc(100vh - #{$height-header});
+}
+
+#main-container {
+  transition: padding 0.1s ease-out;
+  &.side-nav-expanded {
+    padding-left: 240px;
+  }
+}
+
+small {
+  font: {
+    size: $font-size-sm;
+  }
+}
+
+.header {
+  height: $height-header;
+  font-size: 1.8em;
+  box-shadow: $shadow-bottom;
+}
+
+.click {
+   cursor: pointer;
+}
+
+.bg-primary {
+  background-color: $color-primary;
+}
+
+.logo {
+  background-size: cover;
+  padding-top: 40px;
+  width: 63px;
+  background-image: url('../../img/logo/logo-mobile.png');
+}
+
+@media screen and (min-width: 768px) {
+  .logo {
+    width: 190px;
+    background-image: url('../../img/logo/logo-desktop.png');
+  }
+}
