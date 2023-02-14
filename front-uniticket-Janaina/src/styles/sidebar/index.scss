@@ -1,0 +1,11 @@
+@import '../global/global-dir';
+
+.sidebar-icons {
+    font-size: $font-size-icons;
+}
+
+@media screen and (min-width: 1200px) {
+    .sidebar-icons {
+        font-size: $font-size-icons-lg;
+    }
+}

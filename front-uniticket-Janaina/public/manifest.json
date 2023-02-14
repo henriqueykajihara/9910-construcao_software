@@ -1,0 +1,25 @@
+{
+  "short_name": "UniTicket",
+  "name": "UniTicket - Restaurante Universitário UEM",
+  "icons": [
+    {
+      "src": "/img/logo/logo-mobile.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/img/logo/logo-mobile.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/logo/logo-mobile.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#fafafa"
+}
