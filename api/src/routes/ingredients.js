@@ -3,12 +3,12 @@ import Ingredients from '../controllers/ingredients';
 
 const router = express.Router();
 
-router.get('/', Ingredients.get);
+// router.get('/', Ingredients.get);
 
-router.post('/', Ingredients.add);
+// router.post('/', Ingredients.add);
 
-router.put('/', Ingredients.update);
+// router.put('/', Ingredients.update);
 
-router.delete('/', Ingredients.remove);
+// router.delete('/', Ingredients.remove);
 
 export default router;
