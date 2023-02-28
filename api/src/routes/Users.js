@@ -4,18 +4,18 @@ import authenticationMiddleware from '../middlewares/authentication';
 
 const router = express.Router();
 
-router.post('/', Users.create);
+// router.post('/', Users.create);
 
-router.get('/credits', authenticationMiddleware, Users.getCredits);
+// router.get('/credits', authenticationMiddleware, Users.getCredits);
 
-router.post('/login', Users.login);
+// router.post('/login', Users.login);
 
-router.get('/logout', authenticationMiddleware, Users.logout);
+// router.get('/logout', authenticationMiddleware, Users.logout);
 
-router.post('/forgot-password', Users.forgotPassword);
+// router.post('/forgot-password', Users.forgotPassword);
 
-router.post('/reset-password', Users.resetPassword);
+// router.post('/reset-password', Users.resetPassword);
 
-router.get('/creation-confirmation', Users.creationConfirmation);
+// router.get('/creation-confirmation', Users.creationConfirmation);
 
 export default router;
