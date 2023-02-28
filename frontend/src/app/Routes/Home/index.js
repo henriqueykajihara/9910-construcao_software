@@ -80,44 +80,44 @@ export default class Home extends Component {
     }
 
     return (
-      <div>
-        <Title text='Isso é um titulo'/>
-        <Subtitle text='Isso é um subtitulo'/>
-        <div className='row d-flex justify-content-around'>
-          <div className='col-12'>
-            <Paragraph 
-              text='Aqui eu pus um paragrafo para identificar que é um paragrafo e embaixo terá tres inline text'
-            />
-            <InlineText 
-              text='span'
-              type='normal'
-              className='mr-3'
-            />
-            <InlineText 
-              text='strong'
-              type='bold'
-              className='mr-3'
-            />
-            <InlineText 
-              text='strike'
-              type='strike'
-              className='mr-3'
-            />
-          </div>
-          <div className='col-12 mt-5'>
-            <Title text='Botões'/>
-          </div>
-          <Button {...buttonprops}/>
-          <Button {...buttonprops2}/>
-          <Button {...buttonprops3}/>
-          <Button {...buttonprops4}/>
-          <Button {...buttonprops5}/>
-        </div>  
-        <div className='col-12 mt-5'>
-          <Title text='Lista'/>  
-        </div>  
-        <List {...lista}/>
-      </div>
+      // <div>
+      //   <Title text='Isso é um titulo'/>
+      //   <Subtitle text='Isso é um subtitulo'/>
+      //   <div className='row d-flex justify-content-around'>
+      //     <div className='col-12'>
+      //       <Paragraph 
+      //         text='Aqui eu pus um paragrafo para identificar que é um paragrafo e embaixo terá tres inline text'
+      //       />
+      //       <InlineText 
+      //         text='span'
+      //         type='normal'
+      //         className='mr-3'
+      //       />
+      //       <InlineText 
+      //         text='strong'
+      //         type='bold'
+      //         className='mr-3'
+      //       />
+      //       <InlineText 
+      //         text='strike'
+      //         type='strike'
+      //         className='mr-3'
+      //       />
+      //     </div>
+      //     <div className='col-12 mt-5'>
+      //       <Title text='Botões'/>
+      //     </div>
+      //     <Button {...buttonprops}/>
+      //     <Button {...buttonprops2}/>
+      //     <Button {...buttonprops3}/>
+      //     <Button {...buttonprops4}/>
+      //     <Button {...buttonprops5}/>
+      //   </div>  
+      //   <div className='col-12 mt-5'>
+      //     <Title text='Lista'/>  
+      //   </div>  
+      //   <List {...lista}/>
+      // </div>
     );
   }
 }
