@@ -1,0 +1,7 @@
+{
+  "name": "front-uniticket",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
