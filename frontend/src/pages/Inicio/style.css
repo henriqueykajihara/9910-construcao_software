@@ -1,0 +1,25 @@
+/* color: #591bab;
+background: #1aaddd; */
+
+.quantidade-tickets {
+    background-image: linear-gradient(136deg, #591bab, #1aaddd);
+    color: #fff;
+    padding: 1rem;
+}
+
+.quantidade-tickets p {
+    font-size: 0.75rem;
+}
+
+.quantidade-tickets h1 { 
+    border-bottom: 1px solid #fff;
+    font-size: 3rem;
+    line-height: 3.9rem;
+    margin: 0;
+}
+
+.quantidade-tickets ion-item {
+    --ion-safe-area-right: 0;
+    --background: transparent;
+    --border: 0;
+}

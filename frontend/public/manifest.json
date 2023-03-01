@@ -1,25 +1,21 @@
 {
-  "short_name": "UniTicket",
-  "name": "UniTicket - Restaurante Universitário UEM",
+  "short_name": "Ionic App",
+  "name": "My Ionic App",
   "icons": [
     {
-      "src": "/img/logo/logo-mobile.png",
+      "src": "assets/icon/favicon.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "/img/logo/logo-mobile.png",
+      "src": "assets/icon/icon.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/img/logo/logo-mobile.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#fafafa"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
 }
