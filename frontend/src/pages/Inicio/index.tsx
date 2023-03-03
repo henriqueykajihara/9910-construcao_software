@@ -1,6 +1,6 @@
 import { IonContent, IonItem, IonLabel } from "@ionic/react";
 import React from "react";
-import qrcode from "../../assets/qrcode/qrcode.png";
+import qrcode from "../../assets/qrcode/qrcode.jpg";
 import "./style.css";
 
 const Inicio: React.FC = () => {
@@ -23,7 +23,8 @@ const Inicio: React.FC = () => {
           </IonItem>
         </div>
 
-        <img src={qrcode} alt="imagem de qrcode" />
+        <h3 className="ion-padding-start ion-no-margin ion-margin-top">Utilizar seus tickets</h3>
+        <img className="imagem-qrcode" src={qrcode} alt="imagem de qrcode" />
       </IonContent>
     </>
   );
