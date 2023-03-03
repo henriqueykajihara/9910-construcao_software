@@ -23,3 +23,8 @@ background: #1aaddd; */
     --background: transparent;
     --border: 0;
 }
+
+.imagem-qrcode {
+    width: 100%;
+    padding: 0px .4rem;
+}
