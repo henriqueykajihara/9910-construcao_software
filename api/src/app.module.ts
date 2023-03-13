@@ -1,3 +1,4 @@
+import { HistoryModule } from './history/history.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -7,10 +8,10 @@ import { IngredientsModule } from './ingredients/ingredients.module';
 import { MenuModule } from './menu/menu.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { UsersModule } from './users/users.module';
-import { HistoryController } from './history/history.controller';
 
 @Module({
     imports: [
+        HistoryModule,
         AuthModule,
         TypeOrmModule.forRoot({
             type: 'sqlite',
@@ -21,9 +22,8 @@ import { HistoryController } from './history/history.controller';
         IngredientsModule,
         MenuModule,
         TransactionsModule,
-        UsersModule,
     ],
-    controllers: [AppController, HistoryController],
+    controllers: [AppController],
     providers: [AppService],
 })
 export class AppModule {}
