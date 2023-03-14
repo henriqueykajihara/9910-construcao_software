@@ -1,3 +1,4 @@
+import { SnackModule } from './snack/snack.module';
 import { HistoryModule } from './history/history.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,6 +11,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
     imports: [
+        SnackModule,
         AuthModule,
         HistoryModule,
         TypeOrmModule.forRoot({
