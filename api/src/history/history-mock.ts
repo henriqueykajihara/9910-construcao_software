@@ -1,4 +1,6 @@
-export const mockList = [
+import { History } from './history.service';
+
+export const mockList: Promise<History[]> = Promise.resolve([
     {
         id: 0,
         value: 5,
@@ -41,4 +43,4 @@ export const mockList = [
         type: 'alimentação',
         date: new Date(),
     },
-];
+]);
