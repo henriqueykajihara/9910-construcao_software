@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { TypeUser, User, UsersService } from 'src/users/users.service';
+import { User, UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
     constructor(private userService: UsersService) {}
 
-    async validate(
-        username: string,
-        password: string,
-        type: TypeUser,
-    ): Promise<User> {
-        const user = await this.userService.findUserByUsername(username, type);
+    async validate(username: string, pass: string): Promise<User> {
+        const user = await this.userService.findOne(username);
+        if (user && user.password === pass) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { password, ...result } = user;
+            return result;
+        }
 
-        return user?.password === password ? user : null;
+        return null;
     }
 }

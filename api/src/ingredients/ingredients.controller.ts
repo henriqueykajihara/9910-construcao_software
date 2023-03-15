@@ -6,7 +6,11 @@ import {
     ParseIntPipe,
     Post,
     Body,
+    UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/decorators/roles.decorator';
+import { RoleUser } from 'src/enums/role.enum';
+import { RolesGuard } from 'src/users/roles.guard';
 import { Ingredient, IngredientsService } from './ingredients.service';
 
 @Controller('ingredient')
@@ -26,6 +30,8 @@ export class IngredientsController {
     }
 
     @Post()
+    @UseGuards(RolesGuard)
+    @Roles(RoleUser.Worker)
     async create(@Body() { name }: { name: string }): Promise<Ingredient> {
         return await this.ingredientsService.create(name);
     }

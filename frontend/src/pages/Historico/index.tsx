@@ -33,6 +33,8 @@ const Historico: React.FC = () => {
     {}
   );
 
+  console.log(userHistory)
+
   return (
     <>
       <Header title="Histórico" />

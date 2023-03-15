@@ -2,6 +2,10 @@
 import { useEffect, useState } from "react";
 import axios, { Method } from "axios";
 
+const api = axios.create({
+  baseURL: "http://localhost:3001/"
+});
+
 const useAxios = <T>(
   path: string,
   method: Method,
@@ -15,8 +19,8 @@ const useAxios = <T>(
     setLoading(true);
     const fetchData = async () => {
       try {
-        const response = await axios({
-          url: 'http://localhost:3001/' + path,
+        const response = await api({
+          url: path,
           method: method,
           data: body,
         });
@@ -35,4 +39,4 @@ const useAxios = <T>(
   return {loading, error, data};
 };
 
-export { useAxios };
+export { useAxios, api };
