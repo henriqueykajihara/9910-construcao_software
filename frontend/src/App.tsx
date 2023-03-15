@@ -31,7 +31,7 @@ const App: React.FC = () => (
       <Route exact path="/login">
         <Login></Login>
       </Route>
-      {/* <Tabs /> */}
+      <Tabs />
     </IonReactRouter>
   </IonApp>
 );

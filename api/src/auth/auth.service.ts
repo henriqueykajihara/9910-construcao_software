@@ -5,7 +5,7 @@ import { User, UsersService } from 'src/users/users.service';
 export class AuthService {
     constructor(private userService: UsersService) {}
 
-    async validate(username: string, pass: string): Promise<User> {
+    async validateUser(username: string, pass: string): Promise<User> {
         const user = await this.userService.findOne(username);
         if (user && user.password === pass) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
