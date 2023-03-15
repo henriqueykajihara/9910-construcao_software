@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { MenuModule } from './menu/menu.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './users/roles.guard';
 
 @Module({
     imports: [
@@ -25,6 +27,12 @@ import { TransactionsModule } from './transactions/transactions.module';
         TransactionsModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: RolesGuard,
+        },
+        AppService,
+    ],
 })
 export class AppModule {}

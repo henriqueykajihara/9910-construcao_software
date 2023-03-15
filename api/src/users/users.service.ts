@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { RoleUser } from 'src/enums/role.enum';
 import { users } from './constants';
 
-export type RoleUser = 'Student' | 'Worker' | 'Teacher';
 export interface User {
     id: number;
     name: string;
@@ -18,10 +18,8 @@ export class UsersService {
         this.users = users;
     }
 
-    async findOne(username: string, role: RoleUser): Promise<User | null> {
+    async findOne(username: string): Promise<User | null> {
         //TODO: substituir essa busca por uma busca no banco de dados
-        return this.users.find(
-            (user) => user.username === username && user.role === role,
-        );
+        return this.users.find((user) => user.username === username);
     }
 }

@@ -1,12 +1,11 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { User } from 'src/users/users.service';
-import { AuthService } from './auth.service';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from './local-auth.guard';
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
-
+    @UseGuards(LocalAuthGuard)
     @Post('/login')
-    async login(@Body() { username, password, role }): Promise<User> {
-        return await this.authService.validate(username, password, role);
+    async login(@Request() req) {
+        console.log(req.user);
+        return req.user;
     }
 }
