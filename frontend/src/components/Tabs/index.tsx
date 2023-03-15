@@ -20,7 +20,6 @@ import Transferencia from "../../pages/Transferencia";
 
 const Tabs: React.FC = () => {
   return (
-    <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/cardapio">
@@ -60,7 +59,6 @@ const Tabs: React.FC = () => {
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
-    </IonReactRouter>
   );
 };
 

@@ -19,12 +19,20 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import Tabs from "./components/Tabs";
+import { IonReactRouter } from "@ionic/react-router";
+import { Route } from "react-router";
+import Login from "./pages/Login";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <Tabs />
+    <IonReactRouter>
+      <Route exact path="/login">
+        <Login></Login>
+      </Route>
+      {/* <Tabs /> */}
+    </IonReactRouter>
   </IonApp>
 );
 
