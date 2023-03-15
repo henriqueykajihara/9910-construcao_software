@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { users } from './constants';
 
-export type TypeUser = 'Student' | 'Worker' | 'Teacher';
+export type RoleUser = 'Student' | 'Worker' | 'Teacher';
 export interface User {
     id: number;
     name: string;
     username: string;
-    password: string;
-    type: TypeUser;
+    password?: string;
+    role: RoleUser;
 }
 
 @Injectable()
@@ -18,13 +18,10 @@ export class UsersService {
         this.users = users;
     }
 
-    async findUserByUsername(
-        username: string,
-        type: TypeUser,
-    ): Promise<User | null> {
+    async findOne(username: string, role: RoleUser): Promise<User | null> {
         //TODO: substituir essa busca por uma busca no banco de dados
         return this.users.find(
-            (user) => user.username === username && user.type === type,
+            (user) => user.username === username && user.role === role,
         );
     }
 }
