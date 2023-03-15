@@ -8,11 +8,9 @@ import {
   IonLabel,
   IonRow,
 } from "@ionic/react";
-import "./style.css";
 import React from "react";
 
 const Login: React.FC = () => {
-  function handleLogin() {}
 
   return (
     <IonContent color="primary" class="ion-padding">
