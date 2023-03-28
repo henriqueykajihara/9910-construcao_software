@@ -29,25 +29,27 @@ def create_tables(connection):
     
     for query in table_list():
         connection.execute(query)
-    
-#******************************************************************************
-def table_list():
-    return [ """CREATE TABLE IF NOT EXISTS payments ( id INTEGER PRIMARY KEY, description TEXT, credit_debit TEXT) """,
-             """CREATE TABLE IF NOT EXISTS transactions ( id INTEGER PRIMARY KEY, user_id INTEGER, payment_id INTEGER, date DATETIME, used TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(payment_id) REFERENCES payment(id))""",
-             """CREATE TABLE IF NOT EXISTS users( id INTEGER PRIMARY KEY, name TEXT, username TEXT, password BLOB, email TEXT, type TEXT) """,
-             """CREATE TABLE IF NOT EXISTS history ( id INTEGER PRIMARY KEY, transaction_id INTEGER, menu_id INTEGER, date DATETIME, FOREIGN KEY(transaction_id) REFERENCES transactions(id), FOREIGN KEY(menu_id) REFERENCES menu(id) ) """,
-             """CREATE TABLE IF NOT EXISTS menu ( id INTEGER PRIMARY KEY, user_id INTEGER, snack_id INTEGER, date DATETIME, meal_period TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(snack_id) REFERENCES snack(id) ) """,
-             """CREATE TABLE IF NOT EXISTS snack ( id INTEGER PRIMARY KEY, user_id INTEGER, snack_id INTEGER, date DATETIME, meal_period TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(snack_id) REFERENCES snack(id) ) """,
-             """CREATE TABLE IF NOT EXISTS recipe( id INTEGER PRIMARY KEY, name TEXT) """,
-             """CREATE TABLE IF NOT EXISTS recipe_ingredients ( id INTEGER PRIMARY KEY, ingredient_id NUMBER, recipe_id NUMBER, measure NUMBER, FOREIGN KEY(ingredient_id) REFERENCES ingredient(id), FOREIGN KEY(recipe_id) REFERENCES recipe(id) ) """,
-             """CREATE TABLE IF NOT EXISTS ingredients ( id INTEGER PRIMARY KEY, name TEXT, status TEXT, measurement_unit TEXT) """
-            ]
 
 #******************************************************************************
 def save_data(query, values):
     conn = connect()
     conn.execute(query,values)
     conn.commit()
+
+#******************************************************************************
+def table_list():
+    return [ """CREATE TABLE IF NOT EXISTS payments ( id INTEGER PRIMARY KEY, description TEXT, payment_method TEXT) """,
+             """CREATE TABLE IF NOT EXISTS history ( id INTEGER PRIMARY KEY, user_id INTEGER, menu_id INTEGER, user_receiver_id INTEGER, payment_id INTEGER, date_time DATETIME, value REAL, ticket_quantity INTEGER, type TEXT, FOREIGN KEY(transaction_id) REFERENCES transactions(id), FOREIGN KEY(menu_id) REFERENCES menu(id) ) """,
+             """CREATE TABLE IF NOT EXISTS users( id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, cpf TEXT, email TEXT, type TEXT, tickets_avaible INTEGER) """,
+             """CREATE TABLE IF NOT EXISTS transactions ( id INTEGER PRIMARY KEY, user_id INTEGER, menu_id INTEGER, date_time DATETIME, ticket_quantity INTEGER, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(menu_id) REFERENCES menu(id))""",
+             """CREATE TABLE IF NOT EXISTS menu ( id INTEGER PRIMARY KEY, meal_period TEXT, date DATETIME) """,
+             
+             
+             """CREATE TABLE IF NOT EXISTS snack ( id INTEGER PRIMARY KEY, user_id INTEGER, snack_id INTEGER, date DATETIME, meal_period TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(snack_id) REFERENCES snack(id) ) """,
+             """CREATE TABLE IF NOT EXISTS recipe( id INTEGER PRIMARY KEY, name TEXT) """,
+             """CREATE TABLE IF NOT EXISTS recipe_ingredients ( id INTEGER PRIMARY KEY, ingredient_id NUMBER, recipe_id NUMBER, measure NUMBER, FOREIGN KEY(ingredient_id) REFERENCES ingredient(id), FOREIGN KEY(recipe_id) REFERENCES recipe(id) ) """,
+             """CREATE TABLE IF NOT EXISTS ingredients ( id INTEGER PRIMARY KEY, name TEXT, status TEXT, measurement_unit TEXT) """
+            ]
 
 #******************************************************************************
 def encript_passwd(passwd):
