@@ -4,7 +4,7 @@ from sqlite3 import Error
 
 #******************************************************************************
 def connect(db_file):
-    return sqlite3.connect(dbase())
+    return sqlite3.connect(db_file)
 
 #******************************************************************************
 def dbase():
@@ -38,19 +38,52 @@ def save_data(query, values):
 
 #******************************************************************************
 def table_list():
-    return [ """CREATE TABLE IF NOT EXISTS payments ( id INTEGER PRIMARY KEY, description TEXT, payment_method TEXT) """,
-             """CREATE TABLE IF NOT EXISTS history ( id INTEGER PRIMARY KEY, user_id INTEGER, menu_id INTEGER, user_receiver_id INTEGER, payment_id INTEGER, date_time DATETIME, value REAL, ticket_quantity INTEGER, type TEXT, FOREIGN KEY(transaction_id) REFERENCES transactions(id), FOREIGN KEY(menu_id) REFERENCES menu(id) ) """,
-             """CREATE TABLE IF NOT EXISTS users( id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, cpf TEXT, email TEXT, type TEXT, tickets_avaible INTEGER) """,
-             """CREATE TABLE IF NOT EXISTS transactions ( id INTEGER PRIMARY KEY, user_id INTEGER, menu_id INTEGER, date_time DATETIME, ticket_quantity INTEGER, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(menu_id) REFERENCES menu(id))""",
-             """CREATE TABLE IF NOT EXISTS menu ( id INTEGER PRIMARY KEY, meal_period TEXT, date DATETIME) """,
-             
-             
-             """CREATE TABLE IF NOT EXISTS snack ( id INTEGER PRIMARY KEY, user_id INTEGER, snack_id INTEGER, date DATETIME, meal_period TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(snack_id) REFERENCES snack(id) ) """,
-             """CREATE TABLE IF NOT EXISTS recipe( id INTEGER PRIMARY KEY, name TEXT) """,
-             """CREATE TABLE IF NOT EXISTS recipe_ingredients ( id INTEGER PRIMARY KEY, ingredient_id NUMBER, recipe_id NUMBER, measure NUMBER, FOREIGN KEY(ingredient_id) REFERENCES ingredient(id), FOREIGN KEY(recipe_id) REFERENCES recipe(id) ) """,
-             """CREATE TABLE IF NOT EXISTS ingredients ( id INTEGER PRIMARY KEY, name TEXT, status TEXT, measurement_unit TEXT) """
+
+    return [ """CREATE TABLE IF NOT EXISTS payments ( id INTEGER PRIMARY KEY,
+                                                      description TEXT,
+                                                      payment_method TEXT) """,
+             """CREATE TABLE IF NOT EXISTS history ( id INTEGER PRIMARY KEY,
+                                                     user_id INTEGER,
+                                                     user_receiver_id INTEGER,
+                                                     payment_id INTEGER,
+                                                     date DATETIME,
+                                                     value REAL,
+                                                     ticket_quantity INTEGER,
+                                                     type TEXT,
+                                                     FOREIGN KEY(payment_id) REFERENCES payments(id),
+                                                     FOREIGN KEY(user_id) REFERENCES user(id) ) """,
+             """CREATE TABLE IF NOT EXISTS users( id INTEGER PRIMARY KEY,
+                                                  name TEXT,
+                                                  username TEXT,
+                                                  password TEXT,
+                                                  cpf TEXT,
+                                                  email TEXT,
+                                                  type TEXT,
+                                                  tickets_avaible INTEGER) """,
+             """CREATE TABLE IF NOT EXISTS transactions ( id INTEGER PRIMARY KEY,
+                                                          user_id INTEGER,
+                                                          menu_id INTEGER,
+                                                          date DATETIME,
+                                                          ticket_quantity INTEGER,
+                                                          FOREIGN KEY(user_id) REFERENCES user(id),
+                                                          FOREIGN KEY(menu_id) REFERENCES menu(id))""",
+             """CREATE TABLE IF NOT EXISTS menu ( id INTEGER PRIMARY KEY,
+                                                  meal_period TEXT,
+                                                  date DATETIME) """,
+             """CREATE TABLE IF NOT EXISTS menu_itens ( id INTEGER PRIMARY KEY,
+                                                        ingredient_id INTEGER,
+                                                        menu_id INTEGER,
+                                                        FOREIGN KEY(ingredient_id) REFERENCES ingredients(id),
+                                                        FOREIGN KEY(menu_id) REFERENCES menu(id) ) """,
+             """CREATE TABLE IF NOT EXISTS ingredients ( id INTEGER PRIMARY KEY, name TEXT, status TEXT, measurement_unit TEXT) """             
             ]
 
+             #"""CREATE TABLE IF NOT EXISTS snack ( id INTEGER PRIMARY KEY, user_id INTEGER, snack_id INTEGER, date DATETIME, meal_period TEXT, FOREIGN KEY(user_id) REFERENCES user(id), FOREIGN KEY(snack_id) REFERENCES snack(id) ) """,
+             #"""CREATE TABLE IF NOT EXISTS recipe( id INTEGER PRIMARY KEY, name TEXT) """,
+             #"""CREATE TABLE IF NOT EXISTS recipe_ingredients ( id INTEGER PRIMARY KEY, ingredient_id NUMBER, recipe_id NUMBER, measure NUMBER, FOREIGN KEY(ingredient_id) REFERENCES ingredient(id), FOREIGN KEY(recipe_id) REFERENCES recipe(id) ) """,
+
+#******************************************************************************
+#          AUTH/USER
 #******************************************************************************
 def encript_passwd(passwd):
     salt = bcrypt.gensalt()
@@ -93,7 +126,7 @@ def user_exists(user_id):
     return result
 
 #******************************************************************************
-def create_user(name, username, password, email, type_user):
+def new_user(name, username, password, email, type_user):
     query = """INSERT INTO users (name, username, password, email, type)
                VALUES ( :name, :username, :password, :email, :type )"""
     
@@ -108,18 +141,52 @@ def create_user(name, username, password, email, type_user):
     save_data(query,values)
     
 #******************************************************************************
-def new_payment(description, credit_debit):
-    query = """INSERT INTO payment (description, credit_debit)
-               VALUES ( :description, :credit_debit )"""
+#          Payment
+#******************************************************************************
+
+def new_payment(description, payment_method):
+    query = """INSERT INTO payment (description, payment_method)
+               VALUES ( :description, :payment_method )"""
     values ={ 'description': description,
-                               'credit_debit': credit_debit }
+                               'payment_method': payment_method }
     save_data(query,values)
 
+
 #******************************************************************************
-def new_history(transaction_id, menu_id, date_time):
-    query = """INSERT INTO history(transaction_id, menu_id, date)
-               VALUES (:transaction_id, :menu_id, :date)"""
-    values = { 'transaction_id':transaction_id,
-                                'menu_id': menu_id,
-                                'date': date_time }
+#          HISTORY
+#******************************************************************************
+def new_history(user_id, user_receiver_id, payment_id, date, value, ticket_quantity, type):
+    query = """INSERT INTO (user_id, user_receiver_id, payment_id, date, value, ticket_quantity, type) 
+               VALUES (:user_id, :user_receiver_id, :payment_id, :date, :value, :ticket_quantity, :type) """
+    
+    values = { 'user_id': user_id,
+                                'user_receiver_id': user_receiver_id,
+                                'payment_id': payment_id,
+                                'date': date,
+                                'value': value,
+                                'ticket_quantity': ticket_quantity,
+                                'type': type }
     save_data(query,values)
+
+def get_history():
+    conn = connect(dbase())
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM history;""")
+    result = cursor.fetchall()
+
+    return result
+
+#******************************************************************************
+#          TRANSACTIONS
+#******************************************************************************
+def new_transaction(user_id, menu_id, date, ticket_quantity):
+    query = """INSERT INTO transactions (user_id, menu_id, date, ticket_quantity) 
+               VALUES (:user_id, :menu_id, :date, :ticket_quantity) """
+    
+    values = { 'user_id': user_id,
+                                'menu_id': menu_id,
+                                'date': date,
+                                'ticket_quantity': ticket_quantity }
+    save_data(query,values)    
+
+#******************************************************************************
